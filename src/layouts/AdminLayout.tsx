@@ -24,7 +24,7 @@ export function AdminLayout({ children }: AdminLayoutProps) {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Sidebar */}
-      <Sidebar />
+      <Sidebar onCollapseChange={setSidebarWidth} />
 
       {/* AppBar */}
       <AppBar sidebarWidth={sidebarWidth} />

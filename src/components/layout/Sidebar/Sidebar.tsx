@@ -25,9 +25,10 @@ const navigation = [
 
 interface SidebarProps {
   className?: string;
+  onCollapseChange?: (width: number) => void; // new prop
 }
 
-export function Sidebar({ className = "" }: SidebarProps) {
+export function Sidebar({ className = "", onCollapseChange }: SidebarProps) {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
@@ -42,14 +43,22 @@ export function Sidebar({ className = "" }: SidebarProps) {
     }
   };
 
+  const toggleCollapse = () => {
+    const newCollapsed = !isCollapsed;
+    setIsCollapsed(newCollapsed);
+    if (onCollapseChange) {
+      onCollapseChange(newCollapsed ? 64 : 256);
+    }
+  };
+
   return (
     <div
-      className={`fixed inset-y-0 left-0 z-50 flex flex-col bg-sidebar-800 transition-all duration-300 ${
+      className={`fixed inset-y-0 left-0 z-50 flex flex-col bg-[#0C434C] transition-all duration-300 ${
         isCollapsed ? "w-16" : "w-64"
       } ${className}`}
     >
       {/* Logo */}
-      <div className="flex items-center h-16 px-4 border-b border-sidebar-700">
+      <div className="flex items-center h-16 px-8 border-b border-sidebar-700 bg-[#578F9C]">
         <div className="flex items-center space-x-3">
           <div className="w-8 h-8 bg-yellow-400 rounded-lg flex items-center justify-center">
             <div className="w-5 h-5 bg-sidebar-800 rounded-sm flex items-center justify-center">
@@ -57,7 +66,7 @@ export function Sidebar({ className = "" }: SidebarProps) {
             </div>
           </div>
           {!isCollapsed && (
-            <span className="text-xl font-bold text-white">Trible</span>
+            <span className="text-3xl font-medium text-white">Trible</span>
           )}
         </div>
       </div>
@@ -71,7 +80,7 @@ export function Sidebar({ className = "" }: SidebarProps) {
             <Link
               key={item.name}
               to={item.href}
-              className={`group flex items-center px-2 py-2 text-sm font-medium rounded-md transition-colors ${
+              className={`group flex items-center px-2 py-2 text-xl font-medium rounded-md transition-colors ${
                 isActive
                   ? "bg-sidebar-700 text-white"
                   : "text-sidebar-300 hover:bg-sidebar-700 hover:text-white"
@@ -101,22 +110,26 @@ export function Sidebar({ className = "" }: SidebarProps) {
         </Button>
 
         {/* Toggle Button */}
-        <Button
-          variant="ghost"
-          onClick={() => setIsCollapsed(!isCollapsed)}
-          className={`w-full justify-start text-sidebar-300 hover:bg-sidebar-700 hover:text-white ${
-            isCollapsed ? "px-2" : ""
-          }`}
-          title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+        <div
+          className={`flex justify-end w-full text-sidebar-300 ${isCollapsed ? "px-2" : ""}`}
         >
-          {isCollapsed ? (
-            <ChevronRight className="h-5 w-5 flex-shrink-0" />
-          ) : (
-            <>
-              <ChevronLeft className="h-5 w-5 flex-shrink-0" />
-            </>
-          )}
-        </Button>
+          <Button
+            variant="ghost"
+            onClick={toggleCollapse}
+            className={`text-sidebar-300 hover:bg-sidebar-700 hover:text-white ${
+              isCollapsed ? "px-2" : ""
+            }`}
+            title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+          >
+            {isCollapsed ? (
+              <ChevronRight className="h-5 w-5 flex-shrink-0" />
+            ) : (
+              <>
+                <ChevronLeft className="h-5 w-5 flex-shrink-0" />
+              </>
+            )}
+          </Button>
+        </div>
       </div>
     </div>
   );
