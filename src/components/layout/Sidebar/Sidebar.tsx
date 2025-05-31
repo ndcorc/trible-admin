@@ -114,7 +114,6 @@ export function Sidebar({ className = "" }: SidebarProps) {
           ) : (
             <>
               <ChevronLeft className="h-5 w-5 flex-shrink-0" />
-              <span className="ml-3">Collapse</span>
             </>
           )}
         </Button>
