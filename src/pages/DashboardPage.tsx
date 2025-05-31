@@ -1,10 +1,16 @@
-import { Users, DollarSign, ShoppingCart, TrendingUp } from 'lucide-react'
-import { useDashboard } from '@/features/dashboard/hooks'
-import { StatsCard, ChartWidget } from '@/features/dashboard/components'
-import { LoadingSpinner } from '@/components/feedback'
+import { Star, RotateCcw, UserX } from "lucide-react";
+import { useDashboard } from "@/features/dashboard/hooks";
+import {
+  StatsCard,
+  ChartWidget,
+  Insights,
+  ActiveCampaigns,
+} from "@/features/dashboard/components";
+import { LoadingSpinner } from "@/components/feedback";
+import { Button } from "@/components/ui";
 
 export function DashboardPage() {
-  const { stats, chartData, loading, error, refetch } = useDashboard()
+  const { stats, chartData, loading, error, refetch } = useDashboard();
 
   if (loading && !stats) {
     return (
@@ -13,7 +19,7 @@ export function DashboardPage() {
           <LoadingSpinner size="lg" text="Loading dashboard..." />
         </div>
       </div>
-    )
+    );
   }
 
   if (error) {
@@ -29,86 +35,100 @@ export function DashboardPage() {
           </button>
         </div>
       </div>
-    )
+    );
   }
 
   return (
     <div className="p-6 space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-        <div className="text-sm text-gray-500">
-          Last updated: {new Date().toLocaleTimeString()}
+        <div>
+          <h1 className="text-2xl font-normal text-gray-900">
+            Welcome back,{" "}
+            <span className="font-medium text-blue-600">Main Street Brew</span>
+          </h1>
         </div>
+        <Button variant="secondary" size="sm">
+          Configure dashboard
+        </Button>
       </div>
 
-      {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {/* Top Stats Row - 3 individual cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <StatsCard
-          title="Total Users"
-          value={stats?.totalUsers?.toLocaleString() || '0'}
-          change={12}
-          icon={<Users className="h-8 w-8" />}
+          stats={[
+            {
+              title: "Page views",
+              value: "2,123",
+              change: 21,
+            },
+          ]}
         />
         <StatsCard
-          title="Revenue"
-          value={`$${stats?.totalRevenue?.toLocaleString() || '0'}`}
-          change={8}
-          icon={<DollarSign className="h-8 w-8" />}
+          stats={[
+            {
+              title: "Total foot traffic",
+              value: "782",
+              change: 41,
+            },
+          ]}
         />
         <StatsCard
-          title="Orders"
-          value={stats?.totalOrders?.toLocaleString() || '0'}
-          change={-3}
-          icon={<ShoppingCart className="h-8 w-8" />}
-        />
-        <StatsCard
-          title="Conversion Rate"
-          value={`${stats?.conversionRate || 0}%`}
-          change={5}
-          icon={<TrendingUp className="h-8 w-8" />}
+          stats={[
+            {
+              title: "View-to-Visit Conversion",
+              value: "36.8%",
+              change: 12,
+            },
+          ]}
         />
       </div>
 
-      {/* Charts Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <ChartWidget title="Monthly Revenue" data={chartData} />
-
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">
-            Recent Activity
-          </h3>
-          <div className="space-y-4">
-            <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-              <div className="w-2 h-2 bg-green-500 rounded-full" />
-              <div className="flex-1">
-                <p className="text-sm font-medium text-gray-900">
-                  New user registered
-                </p>
-                <p className="text-xs text-gray-500">2 minutes ago</p>
-              </div>
-            </div>
-            <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-              <div className="w-2 h-2 bg-blue-500 rounded-full" />
-              <div className="flex-1">
-                <p className="text-sm font-medium text-gray-900">
-                  Order completed
-                </p>
-                <p className="text-xs text-gray-500">5 minutes ago</p>
-              </div>
-            </div>
-            <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-              <div className="w-2 h-2 bg-yellow-500 rounded-full" />
-              <div className="flex-1">
-                <p className="text-sm font-medium text-gray-900">
-                  System update available
-                </p>
-                <p className="text-xs text-gray-500">1 hour ago</p>
-              </div>
-            </div>
-          </div>
+      {/* Middle Row - Chart and Insights */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2">
+          <ChartWidget title="Foot traffic trend" data={chartData} />
         </div>
+        <Insights />
+      </div>
+
+      {/* Bottom Row - 3 cards */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Bulletin interactions */}
+        <StatsCard
+          stats={[
+            {
+              title: "Bulletin interactions",
+              value: "363",
+              change: 29,
+            },
+          ]}
+        />
+
+        {/* Customer breakdown - 3 stats in one card */}
+        <StatsCard
+          stats={[
+            {
+              title: "New",
+              value: "57%",
+              icon: <Star className="h-6 w-6" />,
+            },
+            {
+              title: "Returning",
+              value: "24%",
+              icon: <RotateCcw className="h-6 w-6" />,
+            },
+            {
+              title: "Lapsed",
+              value: "19%",
+              icon: <UserX className="h-6 w-6" />,
+            },
+          ]}
+        />
+
+        {/* Active Campaigns */}
+        <ActiveCampaigns />
       </div>
     </div>
-  )
+  );
 }
