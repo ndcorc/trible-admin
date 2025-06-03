@@ -48,14 +48,14 @@ export function Sidebar({ className = "", onCollapseChange }: SidebarProps) {
     const newCollapsed = !isCollapsed;
     setIsCollapsed(newCollapsed);
     if (onCollapseChange) {
-      onCollapseChange(newCollapsed ? 96 : 256);
+      onCollapseChange(newCollapsed ? 100 : 256);
     }
   };
 
   return (
     <div
       className={`fixed inset-y-0 left-0 z-50 flex flex-col bg-surface transition-all duration-300 border-r-1 border-surface-dim ${
-        isCollapsed ? "w-[96px]" : "w-[256px]"
+        isCollapsed ? "w-[100px]" : "w-[256px]"
       } ${className}`}
     >
       {/* Logo */}
@@ -73,9 +73,11 @@ export function Sidebar({ className = "", onCollapseChange }: SidebarProps) {
       </div>
 
       {/* Bottom Actions */}
-      <div className="px-3 py-4 space-y-2">
+      <div className="px-2 py-4 space-y-2">
         {/* Toggle Button */}
-        <div className={`flex justify-end w-full`}>
+        <div
+          className={`flex ${isCollapsed ? "justify-center" : "justify-end"} w-full`}
+        >
           <Button
             variant="ghost"
             onClick={toggleCollapse}
@@ -83,10 +85,10 @@ export function Sidebar({ className = "", onCollapseChange }: SidebarProps) {
             title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
           >
             {isCollapsed ? (
-              <PanelLeftOpen className="h-6 w-6 flex-shrink-0" />
+              <PanelLeftOpen className="h-6.5 w-6.5 flex-shrink-0" />
             ) : (
               <>
-                <PanelLeftClose className="h-6 w-6 flex-shrink-0" />
+                <PanelLeftClose className="h-6.5 w-6.5 flex-shrink-0" />
               </>
             )}
           </Button>
@@ -94,7 +96,7 @@ export function Sidebar({ className = "", onCollapseChange }: SidebarProps) {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 px-3 py-4">
+      <nav className="flex-1 px-2 py-4">
         <div className="flex flex-col justify-center h-full space-y-6">
           {navigation.map((item) => {
             const Icon = item.icon;
@@ -110,7 +112,7 @@ export function Sidebar({ className = "", onCollapseChange }: SidebarProps) {
                 }`}
                 title={isCollapsed ? item.name : undefined}
               >
-                <Icon className="h-6 w-6 flex-shrink-0" />
+                <Icon className="h-6.5 w-6.5 flex-shrink-0 ml-1" />
                 {!isCollapsed && <span className="mx-5">{item.name}</span>}
               </Link>
             );
@@ -119,7 +121,7 @@ export function Sidebar({ className = "", onCollapseChange }: SidebarProps) {
       </nav>
 
       {/* Logout */}
-      <div className="px-3 py-4 mt-18 space-y-2">
+      <div className="px-2 py-4 mt-18">
         {/* Toggle Button */}
         <div className={`flex flex-col justify-center h-full space-y-6`}>
           <Button
@@ -128,7 +130,7 @@ export function Sidebar({ className = "", onCollapseChange }: SidebarProps) {
             className={`justify-start px-6 py-2.5 text-on-surface cursor-pointer text-xl hover:bg-surface-container focus:ring-0 focus:ring-offset-0 focus:ring-transparent rounded-3xl overflow-x-hidden`}
             title={isCollapsed ? "Log out" : undefined}
           >
-            <LogOut className="h-6 w-6 flex-shrink-0" />
+            <LogOut className="h-6.5 w-6.5 flex-shrink-0 ml-1" />
             {!isCollapsed && (
               <span className="mx-5 overflow-x-hidden line-clamp-1">
                 Log out
