@@ -1,9 +1,9 @@
-import { Button } from "@/components/ui";
+import { Button, Card } from "@/components/ui";
 import { Plus } from "lucide-react";
 
 export function Insights() {
   return (
-    <div className="bg-surface-container rounded-xl shadow-sm border border-gray-200 p-6">
+    <Card>
       <h3 className="text-lg font-semibold text-gray-900 mb-4">Insights</h3>
 
       <div className="mb-6">
@@ -17,6 +17,6 @@ export function Insights() {
         <Plus className="h-4 w-4 mr-2" />
         Create new campaign
       </Button>
-    </div>
+    </Card>
   );
 }

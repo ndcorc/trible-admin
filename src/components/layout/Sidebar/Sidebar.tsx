@@ -53,7 +53,7 @@ export function Sidebar({ className = "", onCollapseChange }: SidebarProps) {
 
   return (
     <div
-      className={`fixed inset-y-0 left-0 z-50 flex flex-col bg-surface transition-all duration-300 ${
+      className={`fixed inset-y-0 left-0 z-50 flex flex-col bg-surface transition-all duration-300 border-r-1 border-surface-dim ${
         isCollapsed ? "w-[96px]" : "w-[256px]"
       } ${className}`}
     >
@@ -72,7 +72,7 @@ export function Sidebar({ className = "", onCollapseChange }: SidebarProps) {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 px-3 py-4 space-y-2 border-r-1 border-surface-dim">
+      <nav className="flex-1 px-3 py-4 space-y-3">
         {navigation.map((item) => {
           const Icon = item.icon;
           const isActive = location.pathname === item.href;
@@ -87,7 +87,7 @@ export function Sidebar({ className = "", onCollapseChange }: SidebarProps) {
               }`}
               title={isCollapsed ? item.name : undefined}
             >
-              <Icon className="h-5 w-5 flex-shrink-0" />
+              <Icon className="h-7 w-7 flex-shrink-0" />
               {!isCollapsed && <span className="mx-3">{item.name}</span>}
             </Link>
           );
@@ -95,7 +95,7 @@ export function Sidebar({ className = "", onCollapseChange }: SidebarProps) {
       </nav>
 
       {/* Bottom Actions */}
-      <div className="px-3 py-4 space-y-2 border-r-1 border-surface-dim">
+      <div className="px-3 py-4 space-y-2">
         {/* Toggle Button */}
         <div className={`flex justify-end w-full}`}>
           <Button

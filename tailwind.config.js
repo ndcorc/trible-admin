@@ -28,7 +28,7 @@ module.exports = {
 
         background: "#FFF9EB",
         "on-background": "#1D1C13",
-        surface: "#FFF9EB",
+        surface: "#FBFAF4",
         "on-surface": "#1D1C13",
 
         "surface-variant": "#E8E2D0",

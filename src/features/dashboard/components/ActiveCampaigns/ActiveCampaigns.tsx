@@ -1,5 +1,5 @@
 import { TrendingUp } from "lucide-react";
-import { Button } from "@/components/ui";
+import { Button, Card } from "@/components/ui";
 
 interface CampaignMetric {
   label: string;
@@ -33,7 +33,7 @@ export function ActiveCampaigns() {
   const isPositive = campaignData.change > 0;
 
   return (
-    <div className="bg-surface-container rounded-xl shadow-sm border border-gray-200 p-6">
+    <Card>
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-semibold text-gray-900">
           Active campaigns
@@ -83,6 +83,6 @@ export function ActiveCampaigns() {
       <Button variant="secondary" size="sm" className="w-full">
         View full campaign report
       </Button>
-    </div>
+    </Card>
   );
 }

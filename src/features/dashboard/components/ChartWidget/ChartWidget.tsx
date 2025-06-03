@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import type { ChartData } from "../../types/dashboard.types";
+import { Card } from "@/components/ui";
 
 interface ChartWidgetProps {
   data: ChartData[];
@@ -13,7 +14,7 @@ export function ChartWidget({ data, title }: ChartWidgetProps) {
   );
 
   return (
-    <div className="bg-surface-container rounded-xl shadow-sm border border-gray-200 p-6">
+    <Card>
       <h3 className="text-lg font-semibold text-gray-900 mb-4">{title}</h3>
       <div className="space-y-4">
         {data.map((item, index) => (
@@ -33,6 +34,6 @@ export function ChartWidget({ data, title }: ChartWidgetProps) {
           </div>
         ))}
       </div>
-    </div>
+    </Card>
   );
 }
