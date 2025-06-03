@@ -48,12 +48,6 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       lg: "px-8 py-3 text-base min-h-[48px]",
     };
 
-    const iconSizes = {
-      sm: "h-4 w-4",
-      md: "h-4 w-4",
-      lg: "h-5 w-5",
-    };
-
     const renderContent = () => {
       if (loading) {
         return (
