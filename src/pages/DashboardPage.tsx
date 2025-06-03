@@ -45,7 +45,9 @@ export function DashboardPage() {
         <div>
           <h1 className="text-2xl font-normal text-gray-900">
             Welcome back,{" "}
-            <span className="font-medium text-tertiary">Main Street Brew</span>
+            <span className="font-medium italic text-primary">
+              Main Street Brew
+            </span>
           </h1>
         </div>
         <Button variant="secondary" size="sm">

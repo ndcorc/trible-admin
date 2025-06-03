@@ -9,6 +9,7 @@ import {
   Settings,
   PanelLeftClose,
   PanelLeftOpen,
+  LogOut,
 } from "lucide-react";
 import { Button } from "@/components/ui";
 import { useAuth } from "@/features/auth/hooks";
@@ -71,33 +72,10 @@ export function Sidebar({ className = "", onCollapseChange }: SidebarProps) {
         </div>
       </div>
 
-      {/* Navigation */}
-      <nav className="flex-1 px-3 py-4 space-y-3">
-        {navigation.map((item) => {
-          const Icon = item.icon;
-          const isActive = location.pathname === item.href;
-          return (
-            <Link
-              key={item.name}
-              to={item.href}
-              className={`group flex items-center px-6 py-2.5 text-xl leading-[1] font-medium rounded-3xl transition-colors ${
-                isActive
-                  ? "bg-secondary-container"
-                  : "text-sidebar-300 hover:bg-surface-container"
-              }`}
-              title={isCollapsed ? item.name : undefined}
-            >
-              <Icon className="h-7 w-7 flex-shrink-0" />
-              {!isCollapsed && <span className="mx-3">{item.name}</span>}
-            </Link>
-          );
-        })}
-      </nav>
-
       {/* Bottom Actions */}
       <div className="px-3 py-4 space-y-2">
         {/* Toggle Button */}
-        <div className={`flex justify-end w-full}`}>
+        <div className={`flex justify-end w-full`}>
           <Button
             variant="ghost"
             onClick={toggleCollapse}
@@ -105,11 +83,56 @@ export function Sidebar({ className = "", onCollapseChange }: SidebarProps) {
             title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
           >
             {isCollapsed ? (
-              <PanelLeftOpen className="h-5 w-5 flex-shrink-0" />
+              <PanelLeftOpen className="h-6 w-6 flex-shrink-0" />
             ) : (
               <>
-                <PanelLeftClose className="h-5 w-5 flex-shrink-0" />
+                <PanelLeftClose className="h-6 w-6 flex-shrink-0" />
               </>
+            )}
+          </Button>
+        </div>
+      </div>
+
+      {/* Navigation */}
+      <nav className="flex-1 px-3 py-4">
+        <div className="flex flex-col justify-center h-full space-y-6">
+          {navigation.map((item) => {
+            const Icon = item.icon;
+            const isActive = location.pathname === item.href;
+            return (
+              <Link
+                key={item.name}
+                to={item.href}
+                className={`group flex items-center px-6 py-2.5 text-xl leading-[1] font-medium rounded-3xl transition-colors ${
+                  isActive
+                    ? "bg-secondary-container"
+                    : "text-sidebar-300 hover:bg-surface-container"
+                }`}
+                title={isCollapsed ? item.name : undefined}
+              >
+                <Icon className="h-6 w-6 flex-shrink-0" />
+                {!isCollapsed && <span className="mx-5">{item.name}</span>}
+              </Link>
+            );
+          })}
+        </div>
+      </nav>
+
+      {/* Logout */}
+      <div className="px-3 py-4 mt-18 space-y-2">
+        {/* Toggle Button */}
+        <div className={`flex flex-col justify-center h-full space-y-6`}>
+          <Button
+            variant="ghost"
+            onClick={handleLogout}
+            className={`justify-start px-6 py-2.5 text-on-surface cursor-pointer text-xl hover:bg-surface-container focus:ring-0 focus:ring-offset-0 focus:ring-transparent rounded-3xl overflow-x-hidden`}
+            title={isCollapsed ? "Log out" : undefined}
+          >
+            <LogOut className="h-6 w-6 flex-shrink-0" />
+            {!isCollapsed && (
+              <span className="mx-5 overflow-x-hidden line-clamp-1">
+                Log out
+              </span>
             )}
           </Button>
         </div>
