@@ -11,7 +11,7 @@ import {
   PanelLeftOpen,
   LogOut,
 } from "lucide-react";
-import { Button } from "@/components/ui";
+import { BasicButton } from "@/components/ui";
 import { useAuth } from "@/features/auth/hooks";
 import tribleLogo from "@/assets/images/trible-logo.png";
 
@@ -78,7 +78,7 @@ export function Sidebar({ className = "", onCollapseChange }: SidebarProps) {
         <div
           className={`flex ${isCollapsed ? "justify-center" : "justify-end"} w-full`}
         >
-          <Button
+          <BasicButton
             variant="ghost"
             onClick={toggleCollapse}
             className="px-6 py-2.5 text-on-surface cursor-pointer hover:bg-surface-container focus:ring-0 focus:ring-offset-0 focus:ring-transparent rounded-3xl"
@@ -91,7 +91,7 @@ export function Sidebar({ className = "", onCollapseChange }: SidebarProps) {
                 <PanelLeftClose className="h-6.5 w-6.5 flex-shrink-0" />
               </>
             )}
-          </Button>
+          </BasicButton>
         </div>
       </div>
 
@@ -124,7 +124,7 @@ export function Sidebar({ className = "", onCollapseChange }: SidebarProps) {
       <div className="px-2 py-4 mt-18">
         {/* Toggle Button */}
         <div className={`flex flex-col justify-center h-full space-y-6`}>
-          <Button
+          <BasicButton
             variant="ghost"
             onClick={handleLogout}
             className={`justify-start px-6 py-2.5 text-on-surface cursor-pointer text-xl hover:bg-surface-container focus:ring-0 focus:ring-offset-0 focus:ring-transparent rounded-3xl overflow-x-hidden`}
@@ -136,7 +136,7 @@ export function Sidebar({ className = "", onCollapseChange }: SidebarProps) {
                 Log out
               </span>
             )}
-          </Button>
+          </BasicButton>
         </div>
       </div>
     </div>

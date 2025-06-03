@@ -1,4 +1,4 @@
-import { Button, Card } from "@/components/ui";
+import { BasicButton, Card } from "@/components/ui";
 import { Plus } from "lucide-react";
 
 export function Insights() {
@@ -13,10 +13,10 @@ export function Insights() {
         </p>
       </div>
 
-      <Button className="w-full justify-center">
+      <BasicButton className="w-full justify-center">
         <Plus className="h-4 w-4 mr-2" />
         Create new campaign
-      </Button>
+      </BasicButton>
     </Card>
   );
 }

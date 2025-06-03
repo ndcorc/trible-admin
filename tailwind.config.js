@@ -31,7 +31,7 @@ module.exports = {
         surface: "#F2FAF8FF",
         "on-surface": "#191C1D",
 
-        "surface-variant": "#DDE4E6",
+        "surface-variant": "#D9E8E6FF",
         "on-surface-variant": "#40484A",
         outline: "#70787A",
         "outline-variant": "#C0C8CA",
@@ -42,10 +42,10 @@ module.exports = {
         "inverse-on-surface": "#EFF1F2",
         "inverse-primary": "#9BC4CF",
 
-        "primary-fixed": "#C8E6EF",
-        "on-primary-fixed": "#0F3A42",
-        "primary-fixed-dim": "#9BC4CF",
-        "on-primary-fixed-variant": "#3D7582",
+        "primary-fixed": "#C8EFEFFF",
+        "on-primary-fixed": "#0F423DFF",
+        "primary-fixed-dim": "#9BCFC8FF",
+        "on-primary-fixed-variant": "#3D7D82FF",
 
         "secondary-fixed": "#B8D6D5",
         "on-secondary-fixed": "#0A2625",

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Home, ArrowLeft } from "lucide-react";
-import { Button } from "@/components/ui";
+import { BasicButton } from "@/components/ui";
 
 export function NotFoundPage() {
   return (
@@ -17,17 +17,20 @@ export function NotFoundPage() {
         </div>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button asChild>
+          <BasicButton asChild>
             <Link to="/dashboard">
               <Home className="h-4 w-4 mr-2" />
               Go to Dashboard
             </Link>
-          </Button>
+          </BasicButton>
 
-          <Button variant="secondary" onClick={() => window.history.back()}>
+          <BasicButton
+            variant="secondary"
+            onClick={() => window.history.back()}
+          >
             <ArrowLeft className="h-4 w-4 mr-2" />
             Go Back
-          </Button>
+          </BasicButton>
         </div>
 
         <div className="mt-8 text-sm text-gray-500">

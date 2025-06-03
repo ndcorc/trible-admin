@@ -1,5 +1,5 @@
 import { Bell, LogOut, Search } from "lucide-react";
-import { Button } from "@/components/ui";
+import { BasicButton } from "@/components/ui";
 import { useAuth } from "@/features/auth/hooks";
 import { useEffect, useRef, useState } from "react";
 
@@ -68,9 +68,9 @@ export function AppBar({ sidebarWidth }: AppBarProps) {
         {/* User menu */}
         <div className="relative" ref={dropdownRef}>
           <div className="flex items-center space-x-4">
-            <Button variant="ghost" size="sm">
+            <BasicButton variant="ghost" size="sm">
               <Bell className="h-5 w-5" />
-            </Button>
+            </BasicButton>
 
             <div
               className="flex items-center space-x-3 cursor-pointer"
@@ -100,7 +100,7 @@ export function AppBar({ sidebarWidth }: AppBarProps) {
                 >
                   Dummy
                 </span>
-                <Button
+                <BasicButton
                   variant="ghost"
                   onClick={handleLogout}
                   className={`w-full justify-start text-sidebar-300 hover:bg-surface-container`}
@@ -108,7 +108,7 @@ export function AppBar({ sidebarWidth }: AppBarProps) {
                 >
                   <LogOut className="h-5 w-5 flex-shrink-0" />
                   <span className="ml-3">Log out</span>
-                </Button>
+                </BasicButton>
               </div>
             </div>
           )}

@@ -1,10 +1,10 @@
-import { useState } from 'react'
-import { Save, Bell, Shield, Palette, Database } from 'lucide-react'
-import { Button } from '@/components/ui'
-import { useAuth } from '@/features/auth/hooks'
+import { useState } from "react";
+import { Save, Bell, Shield, Palette, Database } from "lucide-react";
+import { BasicButton } from "@/components/ui";
+import { useAuth } from "@/features/auth/hooks";
 
 export function SettingsPage() {
-  const { user } = useAuth()
+  const { user } = useAuth();
   const [settings, setSettings] = useState({
     notifications: {
       email: true,
@@ -13,28 +13,28 @@ export function SettingsPage() {
     },
     security: {
       twoFactor: false,
-      sessionTimeout: '30',
+      sessionTimeout: "30",
     },
     appearance: {
-      theme: 'light',
-      language: 'en',
+      theme: "light",
+      language: "en",
     },
-  })
+  });
 
   const handleSave = async () => {
     // In a real app, save to Firebase or your backend
-    console.log('Saving settings:', settings)
-  }
+    console.log("Saving settings:", settings);
+  };
 
   return (
     <div className="p-6 space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-gray-900">Settings</h1>
-        <Button onClick={handleSave}>
+        <BasicButton onClick={handleSave}>
           <Save className="h-4 w-4 mr-2" />
           Save Changes
-        </Button>
+        </BasicButton>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -42,26 +42,26 @@ export function SettingsPage() {
         <div className="space-y-2">
           <nav className="space-y-1">
             {[
-              { name: 'Profile', icon: Shield, current: true },
-              { name: 'Notifications', icon: Bell, current: false },
-              { name: 'Security', icon: Shield, current: false },
-              { name: 'Appearance', icon: Palette, current: false },
-              { name: 'Data', icon: Database, current: false },
-            ].map(item => {
-              const Icon = item.icon
+              { name: "Profile", icon: Shield, current: true },
+              { name: "Notifications", icon: Bell, current: false },
+              { name: "Security", icon: Shield, current: false },
+              { name: "Appearance", icon: Palette, current: false },
+              { name: "Data", icon: Database, current: false },
+            ].map((item) => {
+              const Icon = item.icon;
               return (
                 <button
                   key={item.name}
                   className={`w-full flex items-center px-3 py-2 text-sm font-medium rounded-md ${
                     item.current
-                      ? 'bg-primary-100 text-primary-900'
-                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                      ? "bg-primary-100 text-primary-900"
+                      : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                   }`}
                 >
                   <Icon className="mr-3 h-4 w-4" />
                   {item.name}
                 </button>
-              )
+              );
             })}
           </nav>
         </div>
@@ -80,7 +80,7 @@ export function SettingsPage() {
                 </label>
                 <input
                   type="text"
-                  defaultValue={user?.displayName || ''}
+                  defaultValue={user?.displayName || ""}
                   className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 />
               </div>
@@ -90,7 +90,7 @@ export function SettingsPage() {
                 </label>
                 <input
                   type="email"
-                  defaultValue={user?.email || ''}
+                  defaultValue={user?.email || ""}
                   className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 />
               </div>
@@ -107,7 +107,7 @@ export function SettingsPage() {
                 <div key={key} className="flex items-center justify-between">
                   <div>
                     <h4 className="text-sm font-medium text-gray-900 capitalize">
-                      {key.replace(/([A-Z])/g, ' $1').trim()} Notifications
+                      {key.replace(/([A-Z])/g, " $1").trim()} Notifications
                     </h4>
                     <p className="text-sm text-gray-500">
                       Receive {key} notifications about your account
@@ -115,18 +115,18 @@ export function SettingsPage() {
                   </div>
                   <button
                     onClick={() =>
-                      setSettings(prev => ({
+                      setSettings((prev) => ({
                         ...prev,
                         notifications: { ...prev.notifications, [key]: !value },
                       }))
                     }
                     className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                      value ? 'bg-primary-600' : 'bg-gray-200'
+                      value ? "bg-primary-600" : "bg-gray-200"
                     }`}
                   >
                     <span
                       className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                        value ? 'translate-x-6' : 'translate-x-1'
+                        value ? "translate-x-6" : "translate-x-1"
                       }`}
                     />
                   </button>
@@ -150,9 +150,9 @@ export function SettingsPage() {
                     Add an extra layer of security to your account
                   </p>
                 </div>
-                <Button variant="secondary" size="sm">
+                <BasicButton variant="secondary" size="sm">
                   Enable
-                </Button>
+                </BasicButton>
               </div>
 
               <div>
@@ -161,8 +161,8 @@ export function SettingsPage() {
                 </label>
                 <select
                   value={settings.security.sessionTimeout}
-                  onChange={e =>
-                    setSettings(prev => ({
+                  onChange={(e) =>
+                    setSettings((prev) => ({
                       ...prev,
                       security: {
                         ...prev.security,
@@ -196,14 +196,14 @@ export function SettingsPage() {
                     Permanently delete your account and all data
                   </p>
                 </div>
-                <Button variant="danger" size="sm">
+                <BasicButton variant="danger" size="sm">
                   Delete Account
-                </Button>
+                </BasicButton>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }

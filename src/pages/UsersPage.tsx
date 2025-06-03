@@ -1,62 +1,62 @@
-import { useState } from 'react'
-import { Plus, Search, Filter, MoreVertical, Edit, Trash2 } from 'lucide-react'
-import { Button } from '@/components/ui'
+import { useState } from "react";
+import { Plus, Search, Filter, MoreVertical, Edit, Trash2 } from "lucide-react";
+import { BasicButton } from "@/components/ui";
 
 // Mock user data
 const mockUsers = [
   {
     id: 1,
-    name: 'John Doe',
-    email: 'john@example.com',
-    role: 'Admin',
-    status: 'Active',
-    lastLogin: '2024-05-31',
+    name: "John Doe",
+    email: "john@example.com",
+    role: "Admin",
+    status: "Active",
+    lastLogin: "2024-05-31",
   },
   {
     id: 2,
-    name: 'Jane Smith',
-    email: 'jane@example.com',
-    role: 'User',
-    status: 'Active',
-    lastLogin: '2024-05-30',
+    name: "Jane Smith",
+    email: "jane@example.com",
+    role: "User",
+    status: "Active",
+    lastLogin: "2024-05-30",
   },
   {
     id: 3,
-    name: 'Mike Johnson',
-    email: 'mike@example.com',
-    role: 'User',
-    status: 'Inactive',
-    lastLogin: '2024-05-25',
+    name: "Mike Johnson",
+    email: "mike@example.com",
+    role: "User",
+    status: "Inactive",
+    lastLogin: "2024-05-25",
   },
   {
     id: 4,
-    name: 'Sarah Wilson',
-    email: 'sarah@example.com',
-    role: 'Moderator',
-    status: 'Active',
-    lastLogin: '2024-05-31',
+    name: "Sarah Wilson",
+    email: "sarah@example.com",
+    role: "Moderator",
+    status: "Active",
+    lastLogin: "2024-05-31",
   },
-]
+];
 
 export function UsersPage() {
-  const [users] = useState(mockUsers)
-  const [searchTerm, setSearchTerm] = useState('')
+  const [users] = useState(mockUsers);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const filteredUsers = users.filter(
-    user =>
+    (user) =>
       user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.email.toLowerCase().includes(searchTerm.toLowerCase())
-  )
+  );
 
   return (
     <div className="p-6 space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-gray-900">Users</h1>
-        <Button>
+        <BasicButton>
           <Plus className="h-4 w-4 mr-2" />
           Add User
-        </Button>
+        </BasicButton>
       </div>
 
       {/* Filters */}
@@ -67,14 +67,14 @@ export function UsersPage() {
             type="text"
             placeholder="Search users..."
             value={searchTerm}
-            onChange={e => setSearchTerm(e.target.value)}
+            onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
           />
         </div>
-        <Button variant="secondary">
+        <BasicButton variant="secondary">
           <Filter className="h-4 w-4 mr-2" />
           Filter
-        </Button>
+        </BasicButton>
       </div>
 
       {/* Users Table */}
@@ -101,16 +101,16 @@ export function UsersPage() {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {filteredUsers.map(user => (
+              {filteredUsers.map((user) => (
                 <tr key={user.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
                       <div className="h-10 w-10 rounded-full bg-primary-600 flex items-center justify-center">
                         <span className="text-sm font-medium text-white">
                           {user.name
-                            .split(' ')
-                            .map(n => n[0])
-                            .join('')}
+                            .split(" ")
+                            .map((n) => n[0])
+                            .join("")}
                         </span>
                       </div>
                       <div className="ml-4">
@@ -126,11 +126,11 @@ export function UsersPage() {
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span
                       className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                        user.role === 'Admin'
-                          ? 'bg-purple-100 text-purple-800'
-                          : user.role === 'Moderator'
-                            ? 'bg-blue-100 text-blue-800'
-                            : 'bg-gray-100 text-gray-800'
+                        user.role === "Admin"
+                          ? "bg-purple-100 text-purple-800"
+                          : user.role === "Moderator"
+                            ? "bg-blue-100 text-blue-800"
+                            : "bg-gray-100 text-gray-800"
                       }`}
                     >
                       {user.role}
@@ -139,9 +139,9 @@ export function UsersPage() {
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span
                       className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                        user.status === 'Active'
-                          ? 'bg-green-100 text-green-800'
-                          : 'bg-red-100 text-red-800'
+                        user.status === "Active"
+                          ? "bg-green-100 text-green-800"
+                          : "bg-red-100 text-red-800"
                       }`}
                     >
                       {user.status}
@@ -152,15 +152,15 @@ export function UsersPage() {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                     <div className="flex items-center space-x-2">
-                      <Button variant="ghost" size="sm">
+                      <BasicButton variant="ghost" size="sm">
                         <Edit className="h-4 w-4" />
-                      </Button>
-                      <Button variant="ghost" size="sm">
+                      </BasicButton>
+                      <BasicButton variant="ghost" size="sm">
                         <Trash2 className="h-4 w-4" />
-                      </Button>
-                      <Button variant="ghost" size="sm">
+                      </BasicButton>
+                      <BasicButton variant="ghost" size="sm">
                         <MoreVertical className="h-4 w-4" />
-                      </Button>
+                      </BasicButton>
                     </div>
                   </td>
                 </tr>
@@ -173,19 +173,19 @@ export function UsersPage() {
       {/* Pagination */}
       <div className="flex items-center justify-between">
         <div className="text-sm text-gray-700">
-          Showing <span className="font-medium">1</span> to{' '}
-          <span className="font-medium">{filteredUsers.length}</span> of{' '}
+          Showing <span className="font-medium">1</span> to{" "}
+          <span className="font-medium">{filteredUsers.length}</span> of{" "}
           <span className="font-medium">{users.length}</span> results
         </div>
         <div className="flex space-x-2">
-          <Button variant="secondary" size="sm" disabled>
+          <BasicButton variant="secondary" size="sm" disabled>
             Previous
-          </Button>
-          <Button variant="secondary" size="sm" disabled>
+          </BasicButton>
+          <BasicButton variant="secondary" size="sm" disabled>
             Next
-          </Button>
+          </BasicButton>
         </div>
       </div>
     </div>
-  )
+  );
 }

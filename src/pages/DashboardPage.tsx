@@ -1,4 +1,4 @@
-import { Star, RotateCcw, UserX } from "lucide-react";
+import { Star, RotateCcw, UserX, Cog } from "lucide-react";
 import { useDashboard } from "@/features/dashboard/hooks";
 import {
   StatsCard,
@@ -7,7 +7,7 @@ import {
   ActiveCampaigns,
 } from "@/features/dashboard/components";
 import { LoadingSpinner } from "@/components/feedback";
-import { Button } from "@/components/ui";
+import { BasicButton, Button } from "@/components/ui";
 
 export function DashboardPage() {
   const { stats, chartData, loading, error, refetch } = useDashboard();
@@ -50,7 +50,7 @@ export function DashboardPage() {
             </span>
           </h1>
         </div>
-        <Button variant="secondary" size="sm">
+        <Button variant="text" size="md" icon={<Cog className="h-5 w-5" />}>
           Configure dashboard
         </Button>
       </div>

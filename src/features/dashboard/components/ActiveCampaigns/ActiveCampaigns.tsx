@@ -1,5 +1,5 @@
 import { TrendingUp } from "lucide-react";
-import { Button, Card } from "@/components/ui";
+import { BasicButton, Card } from "@/components/ui";
 
 interface CampaignMetric {
   label: string;
@@ -80,9 +80,9 @@ export function ActiveCampaigns() {
       )}
 
       {/* Action Button */}
-      <Button variant="secondary" size="sm" className="w-full">
+      <BasicButton variant="secondary" size="sm" className="w-full">
         View full campaign report
-      </Button>
+      </BasicButton>
     </Card>
   );
 }
