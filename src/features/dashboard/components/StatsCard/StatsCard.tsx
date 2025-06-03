@@ -13,7 +13,7 @@ interface StatsCardProps {
 export function StatsCard({ stats, className = "" }: StatsCardProps) {
   return (
     <div
-      className={`bg-white rounded-xl shadow-sm border border-gray-200 p-6 ${className}`}
+      className={`bg-surface-container rounded-xl shadow-sm border border-gray-200 p-6 ${className}`}
     >
       <div
         className={`grid gap-6 ${stats.length === 1 ? "grid-cols-1" : stats.length === 2 ? "grid-cols-2" : "grid-cols-3"}`}

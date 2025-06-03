@@ -1,19 +1,19 @@
-import { useMemo } from 'react'
-import type { ChartData } from '../../types/dashboard.types'
+import { useMemo } from "react";
+import type { ChartData } from "../../types/dashboard.types";
 
 interface ChartWidgetProps {
-  data: ChartData[]
-  title: string
+  data: ChartData[];
+  title: string;
 }
 
 export function ChartWidget({ data, title }: ChartWidgetProps) {
   const maxValue = useMemo(
-    () => Math.max(...data.map(item => item.value)),
+    () => Math.max(...data.map((item) => item.value)),
     [data]
-  )
+  );
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+    <div className="bg-surface-container rounded-xl shadow-sm border border-gray-200 p-6">
       <h3 className="text-lg font-semibold text-gray-900 mb-4">{title}</h3>
       <div className="space-y-4">
         {data.map((item, index) => (
@@ -34,5 +34,5 @@ export function ChartWidget({ data, title }: ChartWidgetProps) {
         ))}
       </div>
     </div>
-  )
+  );
 }

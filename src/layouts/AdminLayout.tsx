@@ -31,7 +31,7 @@ export function AdminLayout({ children }: AdminLayoutProps) {
 
       {/* Main content */}
       <main
-        className="transition-all duration-300 pt-16"
+        className="transition-all duration-300 pt-16 bg-surface min-h-screen"
         style={{ marginLeft: `${sidebarWidth}px` }}
       >
         {children}

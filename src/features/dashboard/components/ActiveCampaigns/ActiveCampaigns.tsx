@@ -33,7 +33,7 @@ export function ActiveCampaigns() {
   const isPositive = campaignData.change > 0;
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+    <div className="bg-surface-container rounded-xl shadow-sm border border-gray-200 p-6">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-semibold text-gray-900">
           Active campaigns
