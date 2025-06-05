@@ -61,13 +61,15 @@ export function Sidebar({ className = "", onCollapseChange }: SidebarProps) {
       {/* Logo */}
       <div className="flex items-center h-16 px-6 border-b border-b-surface-dim">
         <div className="flex items-center space-x-3">
-          <div className="h-10 rounded-lg flex items-center justify-center">
+          <div className="h-10 flex items-center justify-center">
             <div className="w-11 h-10 bg-sidebar-800 rounded-sm flex items-center justify-center">
-              <img className="w-full h-10 rounded-full" src={tribleLogo} />
+              <img className="w-full h-10" src={tribleLogo} />
             </div>
           </div>
           {!isCollapsed && (
-            <span className="text-4xl font-medium text-on-surface">Trible</span>
+            <span className="font-gabriela text-4xl mt-1 font-medium text-on-surface leading-0">
+              Trible
+            </span>
           )}
         </div>
       </div>

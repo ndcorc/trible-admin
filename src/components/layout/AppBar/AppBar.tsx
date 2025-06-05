@@ -2,6 +2,7 @@ import { Bell, LogOut, Search } from "lucide-react";
 import { BasicButton } from "@/components/ui";
 import { useAuth } from "@/features/auth/hooks";
 import { useEffect, useRef, useState } from "react";
+import { useBusiness } from "@/features/business";
 
 interface AppBarProps {
   sidebarWidth: number;
@@ -9,6 +10,7 @@ interface AppBarProps {
 
 export function AppBar({ sidebarWidth }: AppBarProps) {
   const { user } = useAuth();
+  const { currentBusiness } = useBusiness();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -78,13 +80,19 @@ export function AppBar({ sidebarWidth }: AppBarProps) {
             >
               <div className="text-right">
                 <p className="text-sm font-medium text-gray-900">
-                  {user?.displayName || user?.email || "Main Street Brew"}
+                  {currentBusiness?.name ||
+                    user?.displayName ||
+                    user?.email ||
+                    "Main Street Brew"}
                 </p>
                 <p className="text-xs text-gray-500">Obsidian Membership</p>
               </div>
               <div className="h-8 w-8 cursor-pointer rounded-full bg-tertiary flex items-center justify-center">
                 <span className="text-sm font-medium text-white">
-                  {user?.displayName?.[0] || user?.email?.[0] || "M"}
+                  {currentBusiness?.name?.[0] ||
+                    user?.displayName?.[0] ||
+                    user?.email?.[0] ||
+                    "M"}
                 </span>
               </div>
             </div>

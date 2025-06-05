@@ -4,6 +4,10 @@ module.exports = {
   darkMode: "class",
   theme: {
     extend: {
+      fontFamily: {
+        gabriela: ["Gabriela", "serif"],
+        "noto-serif": ['"Noto Serif"', "serif"], // include quotes due to space in name
+      },
       colors: {
         // === Light Mode ===
         primary: "#578F9C",
@@ -42,15 +46,15 @@ module.exports = {
         "inverse-on-surface": "#EFF1F2",
         "inverse-primary": "#9BC4CF",
 
-        "primary-fixed": "#C8EFEFFF",
+        "primary-fixed": "#C8EFE7FF",
         "on-primary-fixed": "#0F423DFF",
         "primary-fixed-dim": "#9BCFC8FF",
-        "on-primary-fixed-variant": "#3D7D82FF",
+        "on-primary-fixed-variant": "#3D8277FF",
 
         "secondary-fixed": "#B8D6D5",
         "on-secondary-fixed": "#0A2625",
         "secondary-fixed-dim": "#9CBAB9",
-        "on-secondary-fixed-variant": "#204E4D",
+        "on-secondary-fixed-variant": "#204E49FF",
 
         "tertiary-fixed": "#F5E880",
         "on-tertiary-fixed": "#2A2200",

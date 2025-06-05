@@ -33,7 +33,7 @@ export function ActiveCampaigns() {
   const isPositive = campaignData.change > 0;
 
   return (
-    <Card>
+    <Card className="py-2 px-3">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-semibold text-gray-900">
           Active campaigns

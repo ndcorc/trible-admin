@@ -8,9 +8,11 @@ import {
 } from "@/features/dashboard/components";
 import { LoadingSpinner } from "@/components/feedback";
 import { BasicButton, Button } from "@/components/ui";
+import { useBusiness } from "@/features/business";
 
 export function DashboardPage() {
   const { stats, chartData, loading, error, refetch } = useDashboard();
+  const { currentBusiness } = useBusiness();
 
   if (loading && !stats) {
     return (
@@ -46,7 +48,7 @@ export function DashboardPage() {
           <h1 className="text-2xl font-normal text-gray-900">
             Welcome back,{" "}
             <span className="font-medium italic text-primary">
-              Main Street Brew
+              {currentBusiness?.name || "Main Street Brew"}
             </span>
           </h1>
         </div>

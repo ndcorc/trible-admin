@@ -37,7 +37,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         "bg-white text-gray-900 shadow-md hover:shadow-lg border border-gray-200",
       filled:
         "bg-primary text-white hover:bg-primary-700 focus:ring-primary-500 shadow-sm hover:shadow-md",
-      "filled-tonal": "bg-primary-100 text-primary-900",
+      "filled-tonal": "bg-secondary-fixed text-gray-600 hover:bg-primary-700",
       outlined: "bg-transparent text-primary-600 border border-primary-600",
       text: "bg-transparent text-primary hover:bg-surface-variant",
     };
