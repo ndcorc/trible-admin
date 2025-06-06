@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui";
-/* import { CampaignBasicsStep } from "./CampaignBasicsStep";
-import { CampaignMessageStep } from "./CampaignMessageStep";
+import { CampaignBasicsStep } from "./CampaignBasicsStep";
+/* import { CampaignMessageStep } from "./CampaignMessageStep";
 import { CampaignTargetingStep } from "./CampaignTargetingStep";
 import { CampaignReviewStep } from "./CampaignReviewStep";
 import { CampaignSuccessModal } from "./CampaignSuccessModal"; */
@@ -154,13 +154,13 @@ export function CampaignModal({
 
         {/* Content */}
         <div className="p-6 overflow-y-auto max-h-[60vh]">
-          {/* {currentStep === "basics" && (
+          {currentStep === "basics" && (
             <CampaignBasicsStep
               data={campaignData.basics}
               onChange={(basics) => updateCampaignData({ basics })}
             />
           )}
-          {currentStep === "message" && (
+          {/* {currentStep === "message" && (
             <CampaignMessageStep
               data={campaignData.message}
               rewardSummary={`${campaignData.basics.rewardType === "% discount" ? "10% discount" : campaignData.basics.rewardType} ${campaignData.basics.rewardTrigger.toLowerCase()}`}
