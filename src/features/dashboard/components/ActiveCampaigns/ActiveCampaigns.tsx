@@ -1,5 +1,6 @@
 import { TrendingUp } from "lucide-react";
-import { BasicButton, Card } from "@/components/ui";
+import { BasicButton, Button, Card } from "@/components/ui";
+import { MdAutoAwesome } from "react-icons/md";
 
 interface CampaignMetric {
   label: string;
@@ -33,19 +34,17 @@ export function ActiveCampaigns() {
   const isPositive = campaignData.change > 0;
 
   return (
-    <Card className="py-2 px-3">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-semibold text-gray-900">
-          Active campaigns
-        </h3>
-        <TrendingUp className="h-5 w-5 text-gray-400" />
+    <Card className="pt-2 pb-3 px-3">
+      <div className="flex w-full justify-between mb-1 flex-shrink-0">
+        <p className="text-xs font-medium text-gray-600">
+          {"Customer breakdown"}
+        </p>
+        <MdAutoAwesome size={18} fill="#578F9C" className="text-primary" />
       </div>
 
       {/* Main Value */}
-      <div className="mb-4">
-        <div className="text-3xl font-bold text-gray-900 mb-1">
-          {totalValue}
-        </div>
+      <div className="mb-2">
+        <div className="text-3xl font-bold text-primary mb-1">{totalValue}</div>
         {change !== undefined && (
           <div
             className={`text-sm ${isPositive ? "text-green-600" : "text-red-600"}`}
@@ -59,10 +58,10 @@ export function ActiveCampaigns() {
       </div>
 
       {/* Metrics Grid */}
-      <div className="grid grid-cols-2 gap-4 mb-4">
+      <div className="grid grid-cols-2 gap-2 mb-2">
         {metrics.map((metric, index) => (
           <div key={index}>
-            <div className="text-xs text-gray-500 uppercase tracking-wide">
+            <div className="text-[0.6rem] text-gray-500 uppercase tracking-wide">
               {metric.label}
             </div>
             <div className="text-sm font-semibold text-gray-900">
@@ -74,15 +73,18 @@ export function ActiveCampaigns() {
 
       {/* Description */}
       {description && (
-        <div className="text-xs text-gray-600 mb-4 leading-relaxed">
+        <div className="text-xs text-gray-600 mb-2 leading-snug">
           {description}
         </div>
       )}
 
       {/* Action Button */}
-      <BasicButton variant="secondary" size="sm" className="w-full">
+      <Button
+        className="w-full justify-center text-xs font-normal min-h-[30px] max-h-[30px]"
+        variant="filled-tonal"
+      >
         View full campaign report
-      </BasicButton>
+      </Button>
     </Card>
   );
 }

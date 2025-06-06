@@ -8,7 +8,7 @@ export function Insights() {
         <p className="text-xs font-medium text-gray-600">Insights</p>
       </div>
 
-      <div className="my-8 px-4">
+      <div className="my-10 px-4">
         <p className="text-primary text-xl italic font-light leading-normal">
           Most users visited you between 4-6pm. Try offering a reward during
           this window.

@@ -5,6 +5,8 @@ import {
   ChartWidget,
   Insights,
   ActiveCampaigns,
+  BulletinInteractions,
+  CustomerBreakdown,
 } from "@/features/dashboard/components";
 import { LoadingSpinner } from "@/components/feedback";
 import { BasicButton, Button } from "@/components/ui";
@@ -99,18 +101,11 @@ export function DashboardPage() {
       {/* Bottom Row - 3 cards */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Bulletin interactions */}
-        <StatsCard
-          stats={[
-            {
-              title: "Bulletin interactions",
-              value: "363",
-              change: 29,
-            },
-          ]}
-        />
+        <BulletinInteractions />
 
         {/* Customer breakdown - 3 stats in one card */}
-        <StatsCard
+        <CustomerBreakdown />
+        {/* <StatsCard
           stats={[
             {
               title: "New",
@@ -128,7 +123,7 @@ export function DashboardPage() {
               icon: <UserX className="h-6 w-6" />,
             },
           ]}
-        />
+        /> */}
 
         {/* Active Campaigns */}
         <ActiveCampaigns />
