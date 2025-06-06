@@ -34,18 +34,19 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     const variants = {
       elevated:
-        "bg-white text-gray-900 shadow-md hover:shadow-lg border border-gray-200",
+        "bg-transparent text-gray-900 shadow-sm border border-gray-200 hover:bg-surface-variant text-primary",
       filled:
-        "bg-primary text-white hover:bg-primary-700 focus:ring-primary-500 shadow-sm hover:shadow-md",
-      "filled-tonal": "bg-secondary-fixed text-gray-600 hover:bg-primary-700",
+        "bg-primary text-white hover:bg-primary-fixed-dim shadow-sm hover:shadow-md",
+      "filled-tonal":
+        "bg-secondary-fixed text-gray-600 hover:bg-secondary-fixed-dim",
       outlined: "bg-transparent text-primary-600 border border-primary-600",
       text: "bg-transparent text-primary hover:bg-surface-variant",
     };
 
     const sizes = {
-      sm: "px-4 py-1 text-sm min-h-[32px]",
-      md: "px-6 py-2 text-sm min-h-[40px]",
-      lg: "px-8 py-3 text-base min-h-[48px]",
+      sm: "px-4 py-1 text-sm min-h-[20px]",
+      md: "px-6 py-2 text-sm min-h-[32]",
+      lg: "px-8 py-3 text-base min-h-[40px]",
     };
 
     const renderContent = () => {

@@ -14,7 +14,11 @@ interface CampaignData {
   description: string;
 }
 
-export function ActiveCampaigns() {
+interface ActiveCampaignsProps {
+  className?: string;
+}
+
+export function ActiveCampaigns({ className = "" }: ActiveCampaignsProps) {
   // Local data structure matching the UI design
   const campaignData: CampaignData = {
     totalValue: "$2,180",
@@ -34,17 +38,17 @@ export function ActiveCampaigns() {
   const isPositive = campaignData.change > 0;
 
   return (
-    <Card className="pt-2 pb-3 px-3">
-      <div className="flex w-full justify-between mb-1 flex-shrink-0">
+    <Card className={`${className} py-2 px-3 flex flex-col gap-1`}>
+      <div className="flex w-full justify-between mb-0 flex-shrink-0">
         <p className="text-xs font-medium text-gray-600">
-          {"Customer breakdown"}
+          {"Active campaigns"}
         </p>
         <MdAutoAwesome size={18} fill="#578F9C" className="text-primary" />
       </div>
 
       {/* Main Value */}
-      <div className="mb-2">
-        <div className="text-3xl font-bold text-primary mb-1">{totalValue}</div>
+      <div className="mb-1">
+        <div className="text-2xl font-bold text-primary mb-1">{totalValue}</div>
         {change !== undefined && (
           <div
             className={`text-sm ${isPositive ? "text-green-600" : "text-red-600"}`}
@@ -58,7 +62,7 @@ export function ActiveCampaigns() {
       </div>
 
       {/* Metrics Grid */}
-      <div className="grid grid-cols-2 gap-2 mb-2">
+      <div className="grid grid-cols-2 gap-0 mb-2">
         {metrics.map((metric, index) => (
           <div key={index}>
             <div className="text-[0.6rem] text-gray-500 uppercase tracking-wide">
@@ -80,8 +84,9 @@ export function ActiveCampaigns() {
 
       {/* Action Button */}
       <Button
-        className="w-full justify-center text-xs font-normal min-h-[30px] max-h-[30px]"
-        variant="filled-tonal"
+        className="w-full justify-center font-normal mb-2"
+        variant="elevated"
+        size="md"
       >
         View full campaign report
       </Button>

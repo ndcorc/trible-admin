@@ -46,14 +46,14 @@ module.exports = {
         "inverse-on-surface": "#EFF1F2",
         "inverse-primary": "#9BC4CF",
 
-        "primary-fixed": "#C8EFE7FF",
+        "primary-fixed": "#C8EFEEFF",
         "on-primary-fixed": "#0F423DFF",
-        "primary-fixed-dim": "#9BCFC8FF",
-        "on-primary-fixed-variant": "#3D8277FF",
+        "primary-fixed-dim": "#9BCFCEFF",
+        "on-primary-fixed-variant": "#3D8282FF",
 
         "secondary-fixed": "#B8D6D5",
         "on-secondary-fixed": "#0A2625",
-        "secondary-fixed-dim": "#9CBAB9",
+        "secondary-fixed-dim": "#A8C7C6FF",
         "on-secondary-fixed-variant": "#204E49FF",
 
         "tertiary-fixed": "#F5E880",

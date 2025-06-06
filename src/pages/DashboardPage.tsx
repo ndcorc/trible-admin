@@ -99,34 +99,15 @@ export function DashboardPage() {
       </div>
 
       {/* Bottom Row - 3 cards */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-8 gap-6">
         {/* Bulletin interactions */}
-        <BulletinInteractions />
+        <BulletinInteractions className="lg:col-span-2" />
 
         {/* Customer breakdown - 3 stats in one card */}
-        <CustomerBreakdown />
-        {/* <StatsCard
-          stats={[
-            {
-              title: "New",
-              value: "57%",
-              icon: <Star className="h-6 w-6" />,
-            },
-            {
-              title: "Returning",
-              value: "24%",
-              icon: <RotateCcw className="h-6 w-6" />,
-            },
-            {
-              title: "Lapsed",
-              value: "19%",
-              icon: <UserX className="h-6 w-6" />,
-            },
-          ]}
-        /> */}
+        <CustomerBreakdown className="lg:col-span-3" />
 
         {/* Active Campaigns */}
-        <ActiveCampaigns />
+        <ActiveCampaigns className="lg:col-span-3" />
       </div>
     </div>
   );
