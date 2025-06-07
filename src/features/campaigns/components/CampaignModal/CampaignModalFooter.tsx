@@ -46,7 +46,7 @@ export function CampaignModalFooter({
 
       <Button
         onClick={onNext}
-        disabled={!canProceed || loading}
+        /* disabled={!canProceed || loading} */
         variant="filled"
         className="px-12 text-md"
       >

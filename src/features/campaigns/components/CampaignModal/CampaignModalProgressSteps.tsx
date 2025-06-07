@@ -24,7 +24,7 @@ export function CampaignModalProgressSteps({
 
   return (
     <div className="px-6 py-4">
-      <div className="flex items-center space-x-8">
+      <div className="flex px-2">
         {steps.map((step, index) => {
           const isActive = step.key === currentStep;
           const isCompleted =
@@ -32,7 +32,10 @@ export function CampaignModalProgressSteps({
           const isPastStep = index < currentStepIndex;
 
           return (
-            <div key={step.key} className="flex items-center">
+            <div
+              key={step.key}
+              className={`flex-1 flex items-center justify-start ${index > 0 && "ml-8"}`}
+            >
               <div className="flex items-center space-x-2">
                 <span className="text-sm text-gray-600">{step.number}.</span>
                 <span
@@ -50,16 +53,21 @@ export function CampaignModalProgressSteps({
                   {step.title}
                 </span>
               </div>
-              {(isActive || isCompleted || isPastStep) && (
-                <div
-                  className={`ml-2 h-1 w-16 rounded-full ${
-                    isCompleted ? "bg-green-400" : "bg-yellow-400"
-                  }`}
-                />
-              )}
             </div>
           );
         })}
+      </div>
+
+      {/* Horizontal progress bar */}
+      <div className="mt-1 w-full">
+        <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+          <div
+            className="h-full bg-yellow-400 rounded-full transition-all duration-300 ease-in-out"
+            style={{
+              width: `${((currentStepIndex + 1) / steps.length) * 100}%`,
+            }}
+          />
+        </div>
       </div>
     </div>
   );

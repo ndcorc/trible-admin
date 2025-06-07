@@ -89,67 +89,14 @@ export function CampaignMessageStep({
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-6">
-      {/* Header */}
-      <div className="flex items-center justify-between mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">
-          Create new campaign
-        </h1>
-        <Button variant="text" size="sm">
-          <X className="h-5 w-5" />
-        </Button>
-      </div>
-
-      {/* Steps */}
-      <div className="mb-8">
-        <div className="flex items-center space-x-8">
-          {steps.map((step, index) => (
-            <div key={step.number} className="flex items-center">
-              <div className="flex items-center space-x-3">
-                <div
-                  className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-                    step.isActive
-                      ? "bg-primary-600 text-white"
-                      : step.isCompleted
-                        ? "bg-green-600 text-white"
-                        : "bg-gray-200 text-gray-600"
-                  }`}
-                >
-                  {step.number}
-                </div>
-                <span
-                  className={`text-sm font-medium ${
-                    step.isActive ? "text-primary-600" : "text-gray-600"
-                  }`}
-                >
-                  {step.name}
-                </span>
-              </div>
-              {index < steps.length - 1 && (
-                <div className="w-12 h-px bg-gray-200 ml-6" />
-              )}
-            </div>
-          ))}
-        </div>
-
-        {/* Progress bar */}
-        <div className="mt-4">
-          <div className="w-full bg-gray-200 h-1 rounded-full">
-            <div
-              className="bg-primary-600 h-1 rounded-full transition-all duration-300"
-              style={{ width: "50%" }}
-            />
-          </div>
-        </div>
-      </div>
-
+    <div className="max-w-6xl mx-auto">
       {/* Campaign Type */}
       <div className="mb-6">
         <h2 className="text-lg font-semibold text-gray-900">{campaignType}</h2>
       </div>
 
       {/* Info Message */}
-      <div className="mb-8 bg-blue-50 border border-blue-200 rounded-lg p-4">
+      <div className="mb-8 bg-blue-50 border border-blue-200 rounded-lg">
         <div className="flex items-start space-x-3">
           <Info className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
           <p className="text-sm text-blue-800">
@@ -235,22 +182,6 @@ export function CampaignMessageStep({
           <div className="flex justify-center">
             <PhonePreview title={watchedTitle} message={watchedMessage} />
           </div>
-        </div>
-
-        {/* Navigation Buttons */}
-        <div className="flex items-center justify-between mt-12">
-          <Button
-            type="button"
-            variant="filled-tonal"
-            onClick={onBack}
-            className="px-8"
-          >
-            Back
-          </Button>
-
-          <Button type="submit" disabled={!isValid} className="px-8">
-            Next
-          </Button>
         </div>
       </form>
     </div>
