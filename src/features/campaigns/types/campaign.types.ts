@@ -11,6 +11,20 @@ export interface CampaignMessage {
   message: string;
 }
 
+export interface CampaignMessageStepProps {
+  data: CampaignMessage;
+  onDataChange: (data: CampaignMessage) => void;
+  onNext: () => void;
+  onBack: () => void;
+  campaignType?: string;
+}
+
+export interface PhonePreviewProps {
+  title: string;
+  message: string;
+  businessName?: string;
+}
+
 export interface CampaignTargeting {
   audience: "all" | "inactive" | "returning" | "vip";
   deliveryMethods: {

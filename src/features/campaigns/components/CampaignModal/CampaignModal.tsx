@@ -8,9 +8,11 @@ import { CampaignReviewStep } from "./CampaignReviewStep";
 import { CampaignSuccessModal } from "./CampaignSuccessModal"; */
 import type {
   CampaignData,
+  CampaignMessage,
   CampaignModalProps,
   CampaignStep,
 } from "../../types/campaign.types";
+import { CampaignMessageStep } from "./CampaignMessageStep";
 
 const defaultCampaignData: CampaignData = {
   basics: {
@@ -63,6 +65,10 @@ export function CampaignModal({
   const [campaignData, setCampaignData] =
     useState<CampaignData>(defaultCampaignData);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [messageData, setMessageData] = useState<CampaignMessage>({
+    title: "",
+    message: "",
+  });
 
   const currentStepIndex = steps.findIndex((step) => step.key === currentStep);
 
@@ -160,14 +166,16 @@ export function CampaignModal({
               onChange={(basics) => updateCampaignData({ basics })}
             />
           )}
-          {/* {currentStep === "message" && (
+          {currentStep === "message" && (
             <CampaignMessageStep
               data={campaignData.message}
-              rewardSummary={`${campaignData.basics.rewardType === "% discount" ? "10% discount" : campaignData.basics.rewardType} ${campaignData.basics.rewardTrigger.toLowerCase()}`}
-              onChange={(message) => updateCampaignData({ message })}
+              onDataChange={setMessageData}
+              onNext={() => console.log("Next step")}
+              onBack={() => console.log("Previous step")}
+              campaignType="Automated reward: 10% discount after 30 days of inactivity"
             />
           )}
-          {currentStep === "targeting" && (
+          {/*currentStep === "targeting" && (
             <CampaignTargetingStep
               data={campaignData.targeting}
               rewardSummary={`${campaignData.basics.rewardType === "% discount" ? "10% discount" : campaignData.basics.rewardType} ${campaignData.basics.rewardTrigger.toLowerCase()}`}
