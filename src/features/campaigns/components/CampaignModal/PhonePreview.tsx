@@ -1,6 +1,10 @@
 // src/features/campaigns/components/CampaignModal/PhonePreview.tsx
 
-import { type PhonePreviewProps } from "../../types/campaign.types";
+interface PhonePreviewProps {
+  title: string;
+  message: string;
+  businessName?: string;
+}
 
 export function PhonePreview({
   title,

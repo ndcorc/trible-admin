@@ -1,5 +1,1 @@
-export type {
-  CampaignMessage,
-  CampaignMessageStepProps,
-  PhonePreviewProps,
-} from "./campaign.types";
+export type { CampaignMessage } from "./campaign.types";

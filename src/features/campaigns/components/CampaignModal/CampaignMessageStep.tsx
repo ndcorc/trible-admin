@@ -6,7 +6,15 @@ import { z } from "zod";
 import { Sparkles, Info, X } from "lucide-react";
 import { Button } from "@/components/ui";
 import { PhonePreview } from "./PhonePreview";
-import { type CampaignMessageStepProps } from "../../types/campaign.types";
+import type { CampaignMessage } from "../../types";
+
+export interface CampaignMessageStepProps {
+  data: CampaignMessage;
+  onDataChange: (data: CampaignMessage) => void;
+  onNext: () => void;
+  onBack: () => void;
+  campaignType?: string;
+}
 
 const messageSchema = z.object({
   title: z

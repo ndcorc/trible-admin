@@ -1,4 +1,4 @@
-import { Star, RotateCcw, UserX, Cog } from "lucide-react";
+import { Cog } from "lucide-react";
 import { useDashboard } from "@/features/dashboard/hooks";
 import {
   StatsCard,
@@ -9,12 +9,18 @@ import {
   CustomerBreakdown,
 } from "@/features/dashboard/components";
 import { LoadingSpinner } from "@/components/feedback";
-import { BasicButton, Button } from "@/components/ui";
+import { Button } from "@/components/ui";
 import { useBusiness } from "@/features/business";
+import { CampaignModal } from "@/features/campaigns/components";
 
 export function DashboardPage() {
   const { stats, chartData, loading, error, refetch } = useDashboard();
   const { currentBusiness } = useBusiness();
+
+  const handleCampaignSuccess = () => {
+    // Optional: You could refresh the dashboard data here if campaigns are shown
+    // refetch();
+  };
 
   if (loading && !stats) {
     return (
@@ -54,9 +60,11 @@ export function DashboardPage() {
             </span>
           </h1>
         </div>
-        <Button variant="text" size="md" icon={<Cog className="h-5 w-5" />}>
-          Configure dashboard
-        </Button>
+        <div className="flex items-center gap-3">
+          <Button variant="text" size="md" icon={<Cog className="h-5 w-5" />}>
+            Configure dashboard
+          </Button>
+        </div>
       </div>
 
       {/* Top Stats Row - 3 individual cards */}
@@ -109,6 +117,9 @@ export function DashboardPage() {
         {/* Active Campaigns */}
         <ActiveCampaigns className="lg:col-span-3" />
       </div>
+
+      {/* Campaign Creation Modal */}
+      <CampaignModal onSuccess={handleCampaignSuccess} />
     </div>
   );
 }

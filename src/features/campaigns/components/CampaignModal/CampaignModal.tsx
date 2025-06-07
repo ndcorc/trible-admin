@@ -1,95 +1,70 @@
 import { useState } from "react";
 import { X } from "lucide-react";
-import { Button } from "@/components/ui";
 import { CampaignBasicsStep } from "./CampaignBasicsStep";
-/* import { CampaignMessageStep } from "./CampaignMessageStep";
-import { CampaignTargetingStep } from "./CampaignTargetingStep";
-import { CampaignReviewStep } from "./CampaignReviewStep";
-import { CampaignSuccessModal } from "./CampaignSuccessModal"; */
-import type {
-  CampaignData,
-  CampaignMessage,
-  CampaignModalProps,
-  CampaignStep,
-} from "../../types/campaign.types";
 import { CampaignMessageStep } from "./CampaignMessageStep";
+import { CampaignTargetingStep } from "../CampaignTargetingStep";
+import { CampaignReviewStep } from "./CampaignReviewStep";
+import { CampaignSuccessModal } from "./CampaignSuccessModal";
+import { CampaignModalProgressSteps } from "./CampaignModalProgressSteps";
+import { CampaignModalFooter } from "./CampaignModalFooter";
+import type { CampaignStep } from "../../types/campaign.types";
+import { useCampaignStore } from "../../stores/campaignStore";
 
-const defaultCampaignData: CampaignData = {
-  basics: {
-    name: "",
-    objective: "Re-engage dormant users",
-    campaignType: "automated",
-    rewardType: "% discount",
-    rewardTrigger: "After 30 days of inactivity",
-  },
-  message: {
-    title: "",
-    message: "",
-  },
-  targeting: {
-    audience: "inactive",
-    deliveryMethods: {
-      pushNotification: true,
-      inAppNotification: false,
-      email: false,
-    },
-    timing: {
-      type: "delayed",
-      delayTime: "4:00pm",
-    },
-    deliveryWindow: {
-      enabled: true,
-      days: ["S", "Th", "F", "Sa", "Su"],
-    },
-  },
-  schedule: {
-    startDate: "",
-    endDate: "",
-  },
-  reviewed: false,
-};
+export interface CampaignModalProps {
+  onSuccess?: () => void;
+}
 
-const steps: { key: CampaignStep; title: string; number: number }[] = [
-  { key: "basics", title: "Campaign basics", number: 1 },
-  { key: "message", title: "Create message", number: 2 },
-  { key: "targeting", title: "Targeting & delivery", number: 3 },
-  { key: "review", title: "Review", number: 4 },
-];
+export function CampaignModal({ onSuccess }: CampaignModalProps = {}) {
+  const {
+    isCreateModalOpen,
+    currentStep,
+    campaignData,
+    loading,
+    error,
+    closeCreateModal,
+    setCurrentStep,
+    updateCampaignData,
+    createCampaign,
+  } = useCampaignStore();
 
-export function CampaignModal({
-  isOpen,
-  onClose,
-  onSuccess,
-}: CampaignModalProps) {
-  const [currentStep, setCurrentStep] = useState<CampaignStep>("basics");
-  const [campaignData, setCampaignData] =
-    useState<CampaignData>(defaultCampaignData);
   const [showSuccess, setShowSuccess] = useState(false);
-  const [messageData, setMessageData] = useState<CampaignMessage>({
-    title: "",
-    message: "",
-  });
+  const [completedSteps, setCompletedSteps] = useState<Set<CampaignStep>>(
+    new Set()
+  );
 
-  const currentStepIndex = steps.findIndex((step) => step.key === currentStep);
+  // Define step order for navigation
+  const stepOrder: CampaignStep[] = [
+    "basics",
+    "message",
+    "targeting",
+    "review",
+  ];
+  const currentStepIndex = stepOrder.findIndex((step) => step === currentStep);
 
   const handleNext = () => {
+    // Mark current step as completed
+    setCompletedSteps((prev) => new Set([...prev, currentStep]));
+
     const nextIndex = currentStepIndex + 1;
-    if (nextIndex < steps.length) {
-      setCurrentStep(steps[nextIndex].key);
+    if (nextIndex < stepOrder.length) {
+      setCurrentStep(stepOrder[nextIndex]);
     }
   };
 
   const handleBack = () => {
     const prevIndex = currentStepIndex - 1;
     if (prevIndex >= 0) {
-      setCurrentStep(steps[prevIndex].key);
+      setCurrentStep(stepOrder[prevIndex]);
     }
   };
 
+  const handleEditStep = (step: CampaignStep) => {
+    setCurrentStep(step);
+  };
+
   const handleLaunch = async () => {
-    // Here you would integrate with your campaign creation API
     try {
-      // await createCampaign(campaignData)
+      await createCampaign(campaignData);
       setShowSuccess(true);
       onSuccess?.();
     } catch (error) {
@@ -99,26 +74,59 @@ export function CampaignModal({
 
   const handleSuccessClose = () => {
     setShowSuccess(false);
-    onClose();
-    // Reset form
-    setCampaignData(defaultCampaignData);
-    setCurrentStep("basics");
+    closeCreateModal();
+    setCompletedSteps(new Set());
   };
 
-  const updateCampaignData = (updates: Partial<CampaignData>) => {
-    setCampaignData((prev) => ({ ...prev, ...updates }));
+  const handleClose = () => {
+    closeCreateModal();
+    setCompletedSteps(new Set());
   };
 
-  if (!isOpen) return null;
+  // Validate step completion
+  const isStepValid = (stepKey: CampaignStep): boolean => {
+    switch (stepKey) {
+      case "basics":
+        return !!(
+          campaignData.basics.name &&
+          campaignData.basics.objective &&
+          campaignData.basics.campaignType &&
+          (campaignData.basics.campaignType === "custom" ||
+            (campaignData.basics.rewardType &&
+              campaignData.basics.rewardTrigger))
+        );
+      case "message":
+        return !!(campaignData.message.title && campaignData.message.message);
+      case "targeting":
+        const hasDeliveryMethod = Object.values(
+          campaignData.targeting.deliveryMethods
+        ).some(Boolean);
+        const isDeliveryWindowValid =
+          !campaignData.targeting.deliveryWindow.enabled ||
+          campaignData.targeting.deliveryWindow.days.length > 0;
+        return hasDeliveryMethod && isDeliveryWindowValid;
+      case "review":
+        return campaignData.reviewed;
+      default:
+        return false;
+    }
+  };
+
+  const canProceed = isStepValid(currentStep);
+
+  if (!isCreateModalOpen) return null;
 
   if (showSuccess) {
-    return {
-      /* <CampaignSuccessModal onClose={handleSuccessClose} />; */
-    };
+    return (
+      <CampaignSuccessModal
+        onClose={handleSuccessClose}
+        campaignName={campaignData.basics.name}
+      />
+    );
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-[2px]">
       <div className="bg-white rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] overflow-hidden">
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
@@ -126,7 +134,7 @@ export function CampaignModal({
             Create new campaign
           </h2>
           <button
-            onClick={onClose}
+            onClick={handleClose}
             className="text-gray-400 hover:text-gray-600 transition-colors"
           >
             <X className="h-6 w-6" />
@@ -134,29 +142,19 @@ export function CampaignModal({
         </div>
 
         {/* Progress Steps */}
-        <div className="px-6 py-4 border-b border-gray-200">
-          <div className="flex items-center space-x-8">
-            {steps.map((step, index) => (
-              <div key={step.key} className="flex items-center">
-                <div className="flex items-center space-x-2">
-                  <span className="text-sm text-gray-600">{step.number}.</span>
-                  <span
-                    className={`text-sm font-medium ${
-                      index <= currentStepIndex
-                        ? "text-gray-900"
-                        : "text-gray-400"
-                    }`}
-                  >
-                    {step.title}
-                  </span>
-                </div>
-                {index <= currentStepIndex && (
-                  <div className="ml-2 h-1 w-16 bg-yellow-400 rounded-full" />
-                )}
-              </div>
-            ))}
+        <CampaignModalProgressSteps
+          currentStep={currentStep}
+          completedSteps={completedSteps}
+          isStepValid={isStepValid}
+          onEditStep={handleEditStep}
+        />
+
+        {/* Error Display */}
+        {error && (
+          <div className="mx-6 mt-4 p-4 bg-red-50 border border-red-200 rounded-md">
+            <p className="text-sm text-red-600">{error}</p>
           </div>
-        </div>
+        )}
 
         {/* Content */}
         <div className="p-6 overflow-y-auto max-h-[60vh]">
@@ -164,59 +162,50 @@ export function CampaignModal({
             <CampaignBasicsStep
               data={campaignData.basics}
               onChange={(basics) => updateCampaignData({ basics })}
+              onNext={handleNext}
             />
           )}
           {currentStep === "message" && (
             <CampaignMessageStep
               data={campaignData.message}
-              onDataChange={setMessageData}
-              onNext={() => console.log("Next step")}
-              onBack={() => console.log("Previous step")}
-              campaignType="Automated reward: 10% discount after 30 days of inactivity"
+              onDataChange={(message) => updateCampaignData({ message })}
+              onNext={handleNext}
+              onBack={handleBack}
+              campaignType={`${
+                campaignData.basics.campaignType === "automated"
+                  ? `Automated reward: ${campaignData.basics.rewardType} ${campaignData.basics.rewardTrigger?.toLowerCase()}`
+                  : "Custom campaign"
+              }`}
             />
           )}
-          {/*currentStep === "targeting" && (
+          {currentStep === "targeting" && (
             <CampaignTargetingStep
               data={campaignData.targeting}
-              rewardSummary={`${campaignData.basics.rewardType === "% discount" ? "10% discount" : campaignData.basics.rewardType} ${campaignData.basics.rewardTrigger.toLowerCase()}`}
-              onChange={(targeting) => updateCampaignData({ targeting })}
+              onDataChange={(targeting) => updateCampaignData({ targeting })}
+              onNext={handleNext}
+              onBack={handleBack}
             />
           )}
           {currentStep === "review" && (
             <CampaignReviewStep
               data={campaignData}
-              onChange={updateCampaignData}
+              onLaunch={handleLaunch}
+              onEdit={handleEditStep}
+              onBack={handleBack}
+              isLoading={loading}
             />
-          )} */}
+          )}
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between p-6 border-t border-gray-200">
-          <Button
-            variant="filled-tonal"
-            onClick={handleBack}
-            disabled={currentStepIndex === 0}
-          >
-            Back
-          </Button>
-
-          {currentStep === "review" ? (
-            <Button
-              onClick={handleLaunch}
-              disabled={!campaignData.reviewed}
-              className="bg-green-600 hover:bg-green-700"
-            >
-              Launch
-            </Button>
-          ) : (
-            <Button
-              onClick={handleNext}
-              className="bg-primary-600 hover:bg-primary-700"
-            >
-              Next
-            </Button>
-          )}
-        </div>
+        <CampaignModalFooter
+          currentStep={currentStep}
+          currentStepIndex={currentStepIndex}
+          canProceed={canProceed}
+          loading={loading}
+          onBack={handleBack}
+          onNext={handleNext}
+        />
       </div>
     </div>
   );

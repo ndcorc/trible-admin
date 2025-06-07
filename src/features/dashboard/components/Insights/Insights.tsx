@@ -1,11 +1,13 @@
 import { BasicButton, Button, Card } from "@/components/ui";
 import { Plus } from "lucide-react";
+import { useCampaignStore } from "@/features/campaigns/stores/campaignStore";
 
 interface InsightsProps {
   className?: string;
 }
 
 export function Insights({ className = "" }: InsightsProps) {
+  const { openCreateModal } = useCampaignStore();
   return (
     <Card className={`${className} py-2 px-3`}>
       <div className="flex flex-col items-stretch justify-start h-full">
@@ -25,6 +27,7 @@ export function Insights({ className = "" }: InsightsProps) {
             className="w-full justify-center text-md font-normal"
             variant="filled-tonal"
             size="md"
+            onClick={openCreateModal}
           >
             <Plus className="h-4 w-4 mr-1" />
             Create new campaign

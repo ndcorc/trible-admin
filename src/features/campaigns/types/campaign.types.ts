@@ -11,21 +11,7 @@ export interface CampaignMessage {
   message: string;
 }
 
-export interface CampaignMessageStepProps {
-  data: CampaignMessage;
-  onDataChange: (data: CampaignMessage) => void;
-  onNext: () => void;
-  onBack: () => void;
-  campaignType?: string;
-}
-
-export interface PhonePreviewProps {
-  title: string;
-  message: string;
-  businessName?: string;
-}
-
-export interface CampaignTargeting {
+export interface CampaignTargetingData {
   audience: "all" | "inactive" | "returning" | "vip";
   deliveryMethods: {
     pushNotification: boolean;
@@ -42,6 +28,13 @@ export interface CampaignTargeting {
   };
 }
 
+export interface CampaignTargetingStepProps {
+  data: CampaignTargetingData;
+  onDataChange: (data: CampaignTargetingData) => void;
+  onNext: () => void;
+  onBack: () => void;
+}
+
 export interface CampaignSchedule {
   startDate: string;
   endDate: string;
@@ -50,15 +43,9 @@ export interface CampaignSchedule {
 export interface CampaignData {
   basics: CampaignBasics;
   message: CampaignMessage;
-  targeting: CampaignTargeting;
+  targeting: CampaignTargetingData;
   schedule: CampaignSchedule;
   reviewed: boolean;
-}
-
-export interface CampaignModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onSuccess?: () => void;
 }
 
 export type CampaignStep = "basics" | "message" | "targeting" | "review";

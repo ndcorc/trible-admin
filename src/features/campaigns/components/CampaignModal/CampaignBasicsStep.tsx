@@ -1,9 +1,17 @@
+import React from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { ChevronDown, Info, Lightbulb } from "lucide-react";
 import type { CampaignBasics } from "../../types/campaign.types";
+import {
+  campaignBasicsSchema,
+  type CampaignBasicsFormData,
+} from "../../schemas/campaign.schemas";
 
 interface CampaignBasicsStepProps {
   data: CampaignBasics;
   onChange: (data: CampaignBasics) => void;
+  onNext?: () => void;
 }
 
 const objectives = [
@@ -56,29 +64,62 @@ const rewardTriggers = [
 export function CampaignBasicsStep({
   data,
   onChange,
+  onNext,
 }: CampaignBasicsStepProps) {
-  const handleChange = (field: keyof CampaignBasics, value: string) => {
-    onChange({ ...data, [field]: value });
-  };
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm<CampaignBasicsFormData>({
+    resolver: zodResolver(campaignBasicsSchema),
+    defaultValues: data,
+    mode: "onChange",
+  });
+
+  const watchedObjective = watch("objective");
+  const watchedCampaignType = watch("campaignType");
 
   const selectedObjective = objectives.find(
-    (obj) => obj.value === data.objective
+    (obj) => obj.value === watchedObjective
   );
 
+  const onSubmit = (formData: CampaignBasicsFormData) => {
+    onChange(formData);
+    onNext?.();
+  };
+
+  // Update parent when form data changes
+  React.useEffect(() => {
+    const subscription = watch((value) => {
+      if (value && Object.keys(value).length > 0) {
+        onChange(value as CampaignBasics);
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [watch, onChange]);
+
+  const handleCampaignTypeChange = (type: "automated" | "custom") => {
+    setValue("campaignType", type);
+  };
+
   return (
-    <div className="space-y-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       {/* Campaign Name */}
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">
           Campaign name
         </label>
         <input
+          {...register("name")}
           type="text"
-          value={data.name}
-          onChange={(e) => handleChange("name", e.target.value)}
           placeholder="Main Street's new promo"
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
         />
+        {errors.name && (
+          <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>
+        )}
       </div>
 
       {/* Objective */}
@@ -88,8 +129,7 @@ export function CampaignBasicsStep({
         </label>
         <div className="relative">
           <select
-            value={data.objective}
-            onChange={(e) => handleChange("objective", e.target.value)}
+            {...register("objective")}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent appearance-none bg-white"
           >
             {objectives.map((objective) => (
@@ -106,6 +146,11 @@ export function CampaignBasicsStep({
             <span>Suggested: {selectedObjective.suggestion}</span>
           </div>
         )}
+        {errors.objective && (
+          <p className="mt-1 text-sm text-red-600">
+            {errors.objective.message}
+          </p>
+        )}
       </div>
 
       {/* Campaign Type */}
@@ -118,9 +163,10 @@ export function CampaignBasicsStep({
         </div>
         <div className="flex space-x-4">
           <button
-            onClick={() => handleChange("campaignType", "automated")}
+            type="button"
+            onClick={() => handleCampaignTypeChange("automated")}
             className={`px-6 py-3 rounded-md border text-sm font-medium transition-colors ${
-              data.campaignType === "automated"
+              watchedCampaignType === "automated"
                 ? "bg-primary-600 text-white border-primary-600"
                 : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
             }`}
@@ -128,9 +174,10 @@ export function CampaignBasicsStep({
             Automated
           </button>
           <button
-            onClick={() => handleChange("campaignType", "custom")}
+            type="button"
+            onClick={() => handleCampaignTypeChange("custom")}
             className={`px-6 py-3 rounded-md border text-sm font-medium transition-colors ${
-              data.campaignType === "custom"
+              watchedCampaignType === "custom"
                 ? "bg-primary-600 text-white border-primary-600"
                 : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
             }`}
@@ -138,10 +185,11 @@ export function CampaignBasicsStep({
             Custom
           </button>
         </div>
+        <input {...register("campaignType")} type="hidden" />
       </div>
 
       {/* Automated Reward Type and Trigger (only show if automated) */}
-      {data.campaignType === "automated" && (
+      {watchedCampaignType === "automated" && (
         <div className="grid grid-cols-2 gap-6">
           <div>
             <div className="flex items-center space-x-2 mb-2">
@@ -152,8 +200,7 @@ export function CampaignBasicsStep({
             </div>
             <div className="relative">
               <select
-                value={data.rewardType}
-                onChange={(e) => handleChange("rewardType", e.target.value)}
+                {...register("rewardType")}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent appearance-none bg-white"
               >
                 {rewardTypes.map((type) => (
@@ -164,6 +211,11 @@ export function CampaignBasicsStep({
               </select>
               <ChevronDown className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400 pointer-events-none" />
             </div>
+            {errors.rewardType && (
+              <p className="mt-1 text-sm text-red-600">
+                {errors.rewardType.message}
+              </p>
+            )}
           </div>
 
           <div>
@@ -175,8 +227,7 @@ export function CampaignBasicsStep({
             </div>
             <div className="relative">
               <select
-                value={data.rewardTrigger}
-                onChange={(e) => handleChange("rewardTrigger", e.target.value)}
+                {...register("rewardTrigger")}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent appearance-none bg-white"
               >
                 {rewardTriggers.map((trigger) => (
@@ -187,9 +238,14 @@ export function CampaignBasicsStep({
               </select>
               <ChevronDown className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400 pointer-events-none" />
             </div>
+            {errors.rewardTrigger && (
+              <p className="mt-1 text-sm text-red-600">
+                {errors.rewardTrigger.message}
+              </p>
+            )}
           </div>
         </div>
       )}
-    </div>
+    </form>
   );
 }

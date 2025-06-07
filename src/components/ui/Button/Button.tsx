@@ -30,7 +30,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const baseStyles =
-      "inline-flex items-center justify-center rounded-full font-medium transition-all duration-200 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed cursor-pointer leading-none";
+      "inline-flex items-center justify-center rounded-full font-medium transition-all duration-200 disabled:opacity-30 disabled:pointer-events-none disabled:cursor-not-allowed cursor-pointer leading-none";
 
     const variants = {
       elevated:
