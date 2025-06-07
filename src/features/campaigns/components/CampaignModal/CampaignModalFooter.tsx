@@ -21,14 +21,6 @@ export function CampaignModalFooter({
   console.log("currentStepIndex", currentStepIndex);
   console.log("currentStep", currentStep);
   console.log("canProceed", canProceed);
-  // Only show footer for basics step (other steps handle their own navigation)
-  if (
-    currentStep === "review" ||
-    currentStep === "message" ||
-    currentStep === "targeting"
-  ) {
-    return null;
-  }
 
   return (
     <div className="flex items-center justify-between p-6">
@@ -50,7 +42,7 @@ export function CampaignModalFooter({
         variant="filled"
         className="px-12 text-md"
       >
-        {loading ? "Processing..." : "Next"}
+        Next
       </Button>
     </div>
   );

@@ -127,7 +127,7 @@ export function CampaignModal({ onSuccess }: CampaignModalProps = {}) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-[2px]">
-      <div className="bg-white rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] overflow-auto">
+      <div className="bg-white rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] h-[90vh] overflow-auto">
         {/* Header */}
         <div className="flex items-center justify-between pt-6 px-6">
           <h2 className="text-2xl font-semibold text-gray-900">
@@ -157,7 +157,7 @@ export function CampaignModal({ onSuccess }: CampaignModalProps = {}) {
         )}
 
         {/* Content */}
-        <div className="p-6 overflow-y-auto max-h-[60vh]">
+        <div className="p-6 overflow-y-hidden max-h-[60vh]">
           {currentStep === "basics" && (
             <CampaignBasicsStep
               data={campaignData.basics}

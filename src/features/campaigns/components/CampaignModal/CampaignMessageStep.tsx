@@ -89,7 +89,7 @@ export function CampaignMessageStep({
   };
 
   return (
-    <div className="max-w-6xl mx-auto">
+    <div className="max-w-6xl mx-auto" id="campaign-message-step">
       {/* Campaign Type */}
       <div className="mb-6">
         <h2 className="text-lg font-semibold text-gray-900">{campaignType}</h2>
