@@ -23,7 +23,7 @@ export function CampaignModalProgressSteps({
   const currentStepIndex = steps.findIndex((step) => step.key === currentStep);
 
   return (
-    <div className="px-6 py-4 border-b border-gray-200">
+    <div className="px-6 py-4">
       <div className="flex items-center space-x-8">
         {steps.map((step, index) => {
           const isActive = step.key === currentStep;
